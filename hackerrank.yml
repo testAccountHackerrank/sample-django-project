@@ -1,0 +1,25 @@
+---
+version: 1.0
+configuration:
+  has_webserver: true
+  readonly_paths:
+    - TestData/
+    - API/tests.py
+  scoring:
+    command: pip install --user -r requirements.txt; python manage.py test
+    files:
+    - unit.xml
+  ide_config:
+    default_open_files:
+    - TradeAPI/urls.py
+    - API/views.py
+    - API/serializers.py
+    - API/models.py
+    - DBDump/__init__.py
+    project_menu:
+      run: pip install --user -r requirements.txt; python manage.py makemigrations
+        && python manage.py migrate --run-syncdb && python manage.py runserver 0.0.0.0:8000
+      install: pip install --user -r requirements.txt
+      test: rm -rf unit.xml;pip install --user -r requirements.txt; python manage.py
+        makemigrations && python manage.py migrate --run-syncdb && python manage.py
+        test
